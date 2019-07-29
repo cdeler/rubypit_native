@@ -1,0 +1,21 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.14)
+PROJECT(rubypit)
+
+SET(CMAKE_CXX_STANDARD 17)
+
+FIND_PACKAGE(JNI)
+
+IF (NOT (JNI_FOUND))
+	MESSAGE(FATAL_ERROR "Unable to locate JNI headers")
+ENDIF ()
+
+ADD_LIBRARY(tree-sitter STATIC IMPORTED)
+SET_TARGET_PROPERTIES(tree-sitter PROPERTIES
+		IMPORTED_LOCATION "${PROJECT_SOURCE_DIR}/tree-sitter/libtree-sitter.a"
+		INTERFACE_INCLUDE_DIRECTORIES "${PROJECT_SOURCE_DIR}/tree-sitter/include/"
+		)
+
+
+ADD_LIBRARY(rubypit SHARED parser.c scanner.cc tree-sitter-ruby.cpp tree-sitter-ruby.h)
+TARGET_LINK_LIBRARIES(rubypit tree-sitter)
+TARGET_INCLUDE_DIRECTORIES(rubypit PUBLIC ${JNI_INCLUDE_DIRS})
