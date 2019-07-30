@@ -20,7 +20,6 @@ TSLanguage *tree_sitter_ruby();
 #endif
 
 static TSParser *parser = nullptr;
-static TSTree *previousTree = nullptr;
 
 
 #ifdef _MSC_VER
@@ -149,15 +148,13 @@ jobject JNICALL Java_cdeler_highlight_JNITokenizer_feed_1internal(
 		jstring source_code)
 	{
 	const char *native_string = env->GetStringUTFChars(source_code, nullptr);
-	TSTree *tree = ts_parser_parse_string(parser, previousTree, native_string, strlen(native_string));
 
-	TSNode root_node = ts_tree_root_node(tree);
+	tree_sitter_tree_t tree{ts_parser_parse_string(parser, nullptr, native_string, strlen(native_string))};
+
+	TSNode root_node = ts_tree_root_node(tree.tree());
 
 	jobject result = walk_over_tree(env, root_node);
 
-	fflush(stdout);
-	previousTree = ts_tree_copy(tree);
-	ts_tree_delete(tree);
 	env->ReleaseStringUTFChars(source_code, native_string);
 
 	return result;

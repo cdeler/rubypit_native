@@ -57,6 +57,32 @@ public:
 
 };
 
+class tree_sitter_tree_t
+{
+private:
+	TSTree *m_tree;
+public:
+	explicit tree_sitter_tree_t(TSTree *tree) noexcept : m_tree{tree}
+		{}
+
+	tree_sitter_tree_t(const tree_sitter_tree_t &) = delete;
+
+	tree_sitter_tree_t(tree_sitter_tree_t &&) = delete;
+
+	TSTree *tree() const
+		{
+		return m_tree;
+		}
+
+	~tree_sitter_tree_t() noexcept
+		{
+		if (m_tree)
+			{
+			ts_tree_delete(m_tree);
+			}
+		}
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif
