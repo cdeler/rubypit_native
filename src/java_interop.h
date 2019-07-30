@@ -8,88 +8,92 @@
 #ifndef RUBYPIT_JAVA_INTEROP_H
 #define RUBYPIT_JAVA_INTEROP_H
 
-namespace cdeler::java
+namespace cdeler
 {
-	class JavaClass
+	namespace java
 	{
-	protected:
-		explicit JavaClass(JNIEnv *env, const char *classname);
 
-		JNIEnv *m_env;
-		jclass m_clazz;
-	public:
 
-		virtual ~JavaClass();
+		class JavaClass
+		{
+		protected:
+			explicit JavaClass(JNIEnv *env, const char *classname);
 
-		[[nodiscard]] jclass get_class() const
-			{
-			return m_clazz;
-			}
-	};
+			JNIEnv *m_env;
+			jclass m_clazz;
+		public:
 
-	class JArrayList : public JavaClass
-	{
-	private:
-		jmethodID m_init;
-		jmethodID m_add;
+			virtual ~JavaClass();
 
-	public:
-		explicit JArrayList(JNIEnv *env);
+			jclass get_class() const
+				{
+				return m_clazz;
+				}
+		};
 
-		[[nodiscard]] jmethodID init() const noexcept
-			{
-			return m_init;
-			}
+		class JArrayList : public JavaClass
+		{
+		private:
+			jmethodID m_init;
+			jmethodID m_add;
 
-		[[nodiscard]] jmethodID add() const noexcept
-			{
-			return m_add;
-			}
+		public:
+			explicit JArrayList(JNIEnv *env);
 
-	};
+			jmethodID init() const noexcept
+				{
+				return m_init;
+				}
 
-	class JAST : public JavaClass
-	{
-	private:
-		jmethodID m_init;
+			jmethodID add() const noexcept
+				{
+				return m_add;
+				}
 
-	public:
-		explicit JAST(JNIEnv *env);
+		};
 
-		[[nodiscard]] jmethodID init() const noexcept
-			{
-			return m_init;
-			}
+		class JAST : public JavaClass
+		{
+		private:
+			jmethodID m_init;
 
-	};
+		public:
+			explicit JAST(JNIEnv *env);
 
-	class JSourceToken : public JavaClass
-	{
-	private:
-		jmethodID m_init;
+			jmethodID init() const noexcept
+				{
+				return m_init;
+				}
 
-	public:
-		explicit JSourceToken(JNIEnv *env);
+		};
 
-		[[nodiscard]] jmethodID init() const noexcept
-			{
-			return m_init;
-			}
+		class JSourceToken : public JavaClass
+		{
+		private:
+			jmethodID m_init;
 
-	};
+		public:
+			explicit JSourceToken(JNIEnv *env);
 
-	class JTokenType : public JavaClass
-	{
-	private:
-		jmethodID m_getEnum;
-	public:
-		explicit JTokenType(JNIEnv *env);
+			jmethodID init() const noexcept
+				{
+				return m_init;
+				}
 
-		[[nodiscard]] jmethodID getEnum() const noexcept
-			{
-			return m_getEnum;
-			}
-	};
+		};
 
+		class JTokenType : public JavaClass
+		{
+		private:
+			jmethodID m_getEnum;
+		public:
+			explicit JTokenType(JNIEnv *env);
+
+			jmethodID getEnum() const noexcept
+				{
+				return m_getEnum;
+				}
+		};
+	}
 }
 #endif //RUBYPIT_JAVA_INTEROP_H

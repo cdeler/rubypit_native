@@ -24,7 +24,9 @@ static TSTree *previousTree = nullptr;
 
 
 #ifdef _MSC_VER
-#include <windows.h>
+#undef _HAS_STD_BYTE
+
+#include <Windows.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -79,7 +81,10 @@ static __attribute__((destructor)) void deinit()
 static jobject _walk_over_tree_internal(JNIEnv *env, TSNode node,
                                         tuple<JArrayList, JAST, JSourceToken, JTokenType> &classes)
 	{
-	auto &[j_array_list, j_ast, j_source_token, j_token_type] = classes;
+	auto &j_array_list = std::get<0>(classes);
+	auto &j_ast = std::get<1>(classes);
+	auto &j_source_token = std::get<2>(classes);
+	auto &j_token_type = std::get<3>(classes);
 
 	auto node_start = ts_node_start_point(node);
 	auto node_end = ts_node_end_point(node);
