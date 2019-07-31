@@ -142,7 +142,7 @@ extern "C"
 {
 #endif
 JNIEXPORT
-jobject JNICALL Java_cdeler_highlight_JNITokenizer_feed_1internal(
+jobject JNICALL Java_cdeler_highlight_token_JNITokenizer_feed_1internal(
 		JNIEnv *env,
 		jobject thisObject,
 		jstring source_code)

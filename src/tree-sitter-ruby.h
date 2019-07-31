@@ -87,11 +87,11 @@ public:
 extern "C" {
 #endif
 /*
- * Class:     cdeler_highlight_JNITokenizer
+ * Class:     cdeler_highlight_token_JNITokenizer
  * Method:    feed_internal
- * Signature: (Ljava/lang/String;)Lcdeler/highlight/AST;
+ * Signature: (Ljava/lang/String;)Lcdeler/highlight/token/AST;
  */
-JNIEXPORT jobject JNICALL Java_cdeler_highlight_JNITokenizer_feed_1internal
+JNIEXPORT jobject JNICALL Java_cdeler_highlight_token_JNITokenizer_feed_1internal
 		(JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
