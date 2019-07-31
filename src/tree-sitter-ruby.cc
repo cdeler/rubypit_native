@@ -94,11 +94,11 @@ static jobject _walk_over_tree_internal(JNIEnv *env, TSNode node,
 
 	local_ref<jobject> node_type_enum{env, env->CallStaticObjectMethod(j_token_type.get_class(),
 	                                                                   j_token_type.getEnum(),
-	                                                                   j_node_type_string.get())};
+	                                                                   j_node_type_string.ref())};
 
 	local_ref<jobject> source_token_object{env, env->NewObject(j_source_token.get_class(),
 	                                                           j_source_token.init(),
-	                                                           node_type_enum.get(),
+	                                                           node_type_enum.ref(),
 	                                                           node_start.row, node_start.column,
 	                                                           node_end.row, node_end.column
 	)};
@@ -112,13 +112,13 @@ static jobject _walk_over_tree_internal(JNIEnv *env, TSNode node,
 	for (uint32_t i = 0; i < childs_count; ++i)
 		{
 		local_ref<jobject> child_node{env, _walk_over_tree_internal(env, ts_node_named_child(node, i), classes)};
-		env->CallBooleanMethod(child_list.get(), j_array_list.add(), child_node.get());
+		env->CallBooleanMethod(child_list.ref(), j_array_list.add(), child_node.ref());
 		}
 
 	jobject ast_object = env->NewObject(j_ast.get_class(),
 	                                    j_ast.init(),
-	                                    source_token_object.get(),
-	                                    child_list.get()
+	                                    source_token_object.ref(),
+	                                    child_list.ref()
 	);
 
 	return ast_object;

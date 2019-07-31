@@ -50,7 +50,7 @@ public:
 			}
 		}
 
-	j_ref_type_t get() const noexcept
+	j_ref_type_t ref() const noexcept
 		{
 		return m_obj;
 		}

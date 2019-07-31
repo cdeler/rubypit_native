@@ -24,17 +24,17 @@ JArrayList::JArrayList(JNIEnv *env) : JavaClass{env, "java/util/ArrayList"}
 	}
 
 
-JAST::JAST(JNIEnv *env) : JavaClass{env, "cdeler/highlight/AST"}
+JAST::JAST(JNIEnv *env) : JavaClass{env, "cdeler/highlight/token/AST"}
 	{
 	m_init = m_env->GetMethodID(m_clazz, "<init>", "(Ljava/lang/Object;Ljava/util/List;)V");
 	}
 
-JSourceToken::JSourceToken(JNIEnv *env) : JavaClass{env, "cdeler/highlight/SourceToken"}
+JSourceToken::JSourceToken(JNIEnv *env) : JavaClass{env, "cdeler/highlight/token/SourceToken"}
 	{
-	m_init = m_env->GetMethodID(m_clazz, "<init>", "(Lcdeler/highlight/TokenType;IIII)V");
+	m_init = m_env->GetMethodID(m_clazz, "<init>", "(Lcdeler/highlight/token/TokenType;IIII)V");
 	}
 
-JTokenType::JTokenType(JNIEnv *env) : JavaClass{env, "cdeler/highlight/TokenType"}
+JTokenType::JTokenType(JNIEnv *env) : JavaClass{env, "cdeler/highlight/token/TokenType"}
 	{
-	m_getEnum = m_env->GetStaticMethodID(m_clazz, "getEnum", "(Ljava/lang/String;)Lcdeler/highlight/TokenType;");
+	m_getEnum = m_env->GetStaticMethodID(m_clazz, "getEnum", "(Ljava/lang/String;)Lcdeler/highlight/token/TokenType;");
 	}
